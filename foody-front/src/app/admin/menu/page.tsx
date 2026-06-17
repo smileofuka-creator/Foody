@@ -2,8 +2,22 @@
 import Image from "next/image";
   import { useEffect, useState } from "react";
 import axios from "axios"; 
-import { Menu, Settings, Truck } from "lucide-react";
+import { LucideLayoutDashboard, Menu, Pen, Plus, Settings, Truck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+import AddCategoryDialog from "@/components/admin/AddCategoryDialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import ProductName from "@/components/admin/ProductName";
 
 interface CategoryType {
   _id: string;
@@ -11,6 +25,7 @@ interface CategoryType {
   active?: boolean; 
   count?: number;  
 }
+
   // const categories = [
   //   { name: "All Dishes", count: 112, active: true },
   //   { name: "Appetizers", count: 6, active: false },
@@ -29,14 +44,17 @@ interface CategoryType {
 const  AdminMenuPage=() => {
 
     const [categories, setCategories]= useState<CategoryType[]>([]);
+    const [loading, setloading]= useState(false)
 
 
     const getCategories= async ()=> {
+        setloading (true);
         const response = await axios.get("http://localhost:3005/category");
 
         console.log ("irj bga hariu", response);
 
         setCategories(response.data.foodCategories);
+        setloading(false);
 };
 
 useEffect(()=>{ 
@@ -44,6 +62,8 @@ useEffect(()=>{
     
 },[]);
     
+
+
 
 
   return (
@@ -66,7 +86,7 @@ useEffect(()=>{
            {/* Navigation Links */}
            <nav className="space-y-2">
              <button className="flex items-center gap-3 w-full px-4 py-3 bg-black text-white rounded-full text-sm font-medium transition">
-               <Menu  className="text-lg"/>
+               <LucideLayoutDashboard  className="text-lg"/>
                Food menu
              </button>
              <button className="flex items-center gap-3 w-full px-4 py-3 text-gray-500 hover:bg-gray-50 rounded-full text-sm font-medium transition">
@@ -97,20 +117,61 @@ useEffect(()=>{
                   <h2 className="text-xl font-bold mb-4">Dishes category</h2>
                   <div className="flex flex-wrap gap-2 items-center">
 
-                    {categories.map((category)=> {
-                        return (  <div key={category._id} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition 
-                " > {category.categoryName}
-                        <Badge>4</Badge>
-                    </div>
-                        );
-                    })}
-
-
-                    <button className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-lg hover:bg-red-600 transition">
-                      +
-                    </button>
+                    {loading ? ( <>
+                    <Skeleton className="h-10 w-24"/>
+                    <Skeleton className="h-10 w-24"/>
+                    <Skeleton className="h-10 w-24"/>
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                    </> ) :(
+                        
+                                        <>
+                            {categories.map((category) => {
+                                return (
+                                <div
+                                    key={category._id}
+                                    className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition"
+                                >
+                                    {category.categoryName}
+                                    <Badge>4</Badge>
+                                </div>
+                                );
+                            })}
+                            
+                            {/* Дата уншиж дууссаны дараа жинхэнэ товчлуур гарч ирнэ */}
+                            <AddCategoryDialog getCategories={getCategories} />
+                            </>
+                        )}
                   </div>
                 </section>  
+
+                {/* Product container */}
+                <section className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                        Apple <span className="text-gray-400 text-sm font-normal">(6)</span>
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        
+                       {/* hool nemehed */}
+                
+                        <div className="border-2 border-dashed border-red-500 rounded-2xl flex flex-col items-center justify-center p-6 min-h-[280px] cursor-pointer">
+                            
+                            <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white mb-3 border border-transparent transition duration-300 hover:scale-105 hover:bg-black hover:text-white">
+                                <Plus className="w-6 h-6" /> 
+                            </div>
+                            <p className="text-sm font-medium text-gray-900 text-center">
+                                Add new dish to<br />Appetizers
+                            </p>
+                        </div>
+
+                        {/* card heseg */}
+
+                        <ProductName/>
+                     
+
+                    </div>
+                </section>
+
+           
        </main>
      </div>
 

@@ -19,7 +19,7 @@ export const createFoodCategory = async (c: Context) => {
         message: "Successfully created food category",
       });
 }
-//GET FOOD CONTROLLER FUNCTION
+//GET FOOD get CONTROLLER FUNCTION
 export const getFoodCategories = async (c: Context) => {
       await connectDb();
 
@@ -31,7 +31,7 @@ export const getFoodCategories = async (c: Context) => {
   });
 }
 
-// GET FOOD CONTROLLER FUNCTION
+// GET FOOD Delete CONTROLLER FUNCTION
 
 export const deleteFoodCategory = async (c:Context) =>{
       await connectDb(); 
@@ -45,7 +45,7 @@ export const deleteFoodCategory = async (c:Context) =>{
   });
 }
 
-//GET FOOD CONTROLLER FUNCTION
+//GET FOOD put CONTROLLER FUNCTION
 
 export const putFoodCategory = async (c: Context) => {
      await connectDb(); 
