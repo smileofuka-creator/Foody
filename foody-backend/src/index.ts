@@ -4,6 +4,7 @@ import { Schema, model } from "mongoose";
 import { cors } from "hono/cors";
 import foodCategoryRoute from "./rooters/food-category-routes.js";
 import { readFile } from "fs";
+import foodRoute from "./rooters/food.route.js";
 
 // const FoodCategorySchema = new Schema({
 //   categoryName: {
@@ -19,7 +20,8 @@ import { readFile } from "fs";
 const app = new Hono();
 app.use('/*', cors());
 
-app.route("/category", foodCategoryRoute)
+app.route("/category", foodCategoryRoute);
+app.route("/food", foodRoute );
 
 // const getFoodCategories= async ()=> {
 //     const data = await readFile (FILE_PATH, "utf-8");
