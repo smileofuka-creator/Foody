@@ -1,5 +1,5 @@
-import Image from "next/image"; // Next.js-ийн Image-ийг импортлох
-import { LayoutDashboard, Truck, Settings } from "lucide-react"; // Иконтуудыг зөв нэршлээр импортлох
+import Image from "next/image";
+import { LayoutDashboard, Truck, Settings } from "lucide-react";
 
 const Sidebar = () => {
   return (
@@ -18,9 +18,7 @@ const Sidebar = () => {
         {/* Navigation Links */}
         <nav className="space-y-2">
           <button className="flex items-center gap-3 w-full px-4 py-3 bg-black text-white rounded-full text-sm font-medium transition">
-            <LayoutDashboard className="w-5 h-5" />{" "}
-            {/* Иконы хэмжээг w-5 h-5-аар тохируулбал илүү гоё харагдана */}
-            Food menu
+            <LayoutDashboard className="w-5 h-5" /> Food menu
           </button>
           <button className="flex items-center gap-3 w-full px-4 py-3 text-gray-500 hover:bg-gray-50 rounded-full text-sm font-medium transition">
             <Truck className="w-5 h-5" />

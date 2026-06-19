@@ -2,14 +2,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Badge } from "@/components/ui/badge";
-
 import AddCategoryDialog from "@/components/admin/AddCategoryDialog";
 import { Skeleton } from "@/components/ui/skeleton";
-
-import { Button } from "@/components/ui/button";
-import ProductName from "@/components/admin/ProductName";
+import ProductName from "@/components/admin/CardName";
 import AddProductName from "@/components/admin/AddProductName";
 import Sidebar from "./sidebar";
 
@@ -50,7 +46,7 @@ const AdminMenuPage = () => {
 
   const getCategories = async () => {
     setCategoryLoading(true);
-    const response = await axios.get("http://localhost:3005/category");
+    const response = await axios.get("http://localhost:3000/category");
 
     console.log("irj bga hariu", response);
 
@@ -64,7 +60,7 @@ const AdminMenuPage = () => {
 
   const getFood = async () => {
     setFoodLoading(true);
-    const response = await axios.get("http://localhost:3005/food");
+    const response = await axios.get("http://localhost:3000/food");
 
     console.log("hoolni hariu", response);
 

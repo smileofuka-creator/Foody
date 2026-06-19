@@ -28,27 +28,26 @@ const AddProductName = ({ getFood }: { getFood: () => void }) => {
     setFoodname(e.target.value);
   };
 
-  const [price, setPrice] = useState(""); // Үнэд зориулсан State
+  const [price, setPrice] = useState("");
   const handlePrice = (e) => {
     console.log("Event", e);
     setPrice(e.target.value);
   };
-  const [ingredients, setIngredients] = useState(""); // Орцонд зориулсан State
+  const [ingredients, setIngredients] = useState("");
   const handleIngredients = (e) => {
     console.log("Event", e);
     setIngredients(e.target.value);
   };
 
   const addNewFood = async () => {
-    await axios.post("http://localhost:3005/food", {
+    await axios.post("http://localhost:3000/food", {
       foodName: foodName,
-      price: Number(price), // Тоо руу хөрвүүлж илгээнэ
+      price: Number(price),
       ingredients: ingredients,
     });
     getFood();
   };
 
-  //
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -64,9 +63,9 @@ const AddProductName = ({ getFood }: { getFood: () => void }) => {
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[460px] rounded-3xl p-6 bg-white border-0 shadow-lg">
-        <DialogHeader className="flex flex-row items-center justify-between border-b pb-4">
+        <DialogHeader className="flex flex-row items-center justify-between  pb-4">
           <DialogTitle className="text-lg font-bold text-gray-900">
-            {/* Add new Dish to {foodName} */}
+            Add new Dish to
           </DialogTitle>
         </DialogHeader>
 
@@ -113,7 +112,9 @@ const AddProductName = ({ getFood }: { getFood: () => void }) => {
 
           {/* zurag */}
           {/* <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-700">Food image</label>
+            <label className="text-xs font-semibold text-gray-700">
+              Food image
+            </label>
             <div className="border border-dashed border-blue-200 bg-blue-50/30 hover:bg-blue-50/60 rounded-xl p-6 flex flex-col items-center justify-center gap-2 cursor-pointer transition">
               <div className="text-gray-400">
                 <ImagePlus className="w-5 h-5" />
@@ -121,7 +122,6 @@ const AddProductName = ({ getFood }: { getFood: () => void }) => {
               <span className="text-xs text-gray-600 font-medium">
                 Choose a file or drag & drop it here
               </span>
-         
             </div>
           </div> */}
 
