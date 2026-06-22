@@ -15,21 +15,13 @@ import foodRoute from "./rooters/food.route.js";
 
 // const FoodCategoryModel = model("foodCategory", FoodCategorySchema);
 
-
-
 const app = new Hono();
-app.use('/*', cors());
+app.use("/*", cors());
 
 app.route("/category", foodCategoryRoute);
-app.route("/food", foodRoute );
+app.route("/food", foodRoute);
 
-// const getFoodCategories= async ()=> {
-//     const data = await readFile (FILE_PATH, "utf-8");
-//     return JSON.parse(data);
-// };
-
-// const saveFoodCategories= 
-
+// const saveFoodCategories=
 
 // Food category nemdeg huselt
 
@@ -60,13 +52,12 @@ app.route("/food", foodRoute );
 // });
 
 // app.put("/category/:id", async (c) => {
-//   await connectDb(); 
-//   const id = c.req.param("id"); 
-//   const input = await c.req.json(); 
-
+//   await connectDb();
+//   const id = c.req.param("id");
+//   const input = await c.req.json();
 
 //   const response = await FoodCategoryModel.findByIdAndUpdate(id, {
-    
+
 //     categoryName: input.categoryName,
 //   });
 
@@ -77,24 +68,15 @@ app.route("/food", foodRoute );
 // });
 
 // app.delete("/category/:id", async (c) => {
-//   await connectDb(); 
-//   const id = c.req.param("id"); 
+//   await connectDb();
+//   const id = c.req.param("id");
 
-//   const response = await FoodCategoryModel.findByIdAndDelete(id); 
+//   const response = await FoodCategoryModel.findByIdAndDelete(id);
 
 //   return c.json({
-   
+
 //     message: "Successfully deleted food category",response,
 //   });
 // });
-
-
-
-
-
-
-
-
-
 
 export default app;
