@@ -9,13 +9,13 @@ import ProductName from "@/components/admin/CardName";
 import AddProductName from "@/components/admin/AddProductName";
 import Sidebar from "./sidebar";
 
-interface CategoryType {
+export interface CategoryType {
   _id: string;
   categoryName: string;
   active?: boolean;
   count?: number;
 }
-interface FoodType {
+export interface FoodType {
   _id: string;
   foodName: string;
   price?: number;
