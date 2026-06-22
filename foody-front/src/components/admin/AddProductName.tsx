@@ -9,18 +9,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { ImagePlus, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 
-interface AddProductNameProps {
+const AddProductName = ({
+  getFood,
+  categoryId,
+}: {
   getFood: () => void;
-  // foodName?: string;
-}
-
-const AddProductName = ({ getFood }: { getFood: () => void }) => {
+  categoryId: string;
+}) => {
   const [foodName, setFoodname] = useState("");
 
   const handleFoodName = (e) => {
@@ -44,6 +45,9 @@ const AddProductName = ({ getFood }: { getFood: () => void }) => {
       foodName: foodName,
       price: Number(price),
       ingredients: ingredients,
+      category: categoryId,
+      image:
+        "https://www.ferwer.com/img/blog/objevte-umeni-pripravy-nigiri-sushi-jako-doma-bez-stresu-1753961499827.webp",
     });
     getFood();
   };

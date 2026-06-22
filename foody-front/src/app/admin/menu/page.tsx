@@ -22,6 +22,7 @@ interface FoodType {
   ingredients?: string;
   image?: string;
   active?: boolean;
+  category: string;
 }
 
 // const categories = [
@@ -81,6 +82,7 @@ const AdminMenuPage = () => {
       {/* 2. MAIN CONTENT AREA */}
       <main className="flex-1 p-8 max-w-[1200px]">
         {/* Header (admin avatar) */}
+
         <header className="flex justify-end mb-6">
           <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 border border-gray-300">
             <Image
@@ -123,47 +125,39 @@ const AdminMenuPage = () => {
           </div>
         </section>
 
-        {/* Product container */}
-        <section className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            Bono appatitoo{" "}
-            <span className="text-gray-400 text-sm font-normal">(6)</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {foodLoading ? (
-              <>
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-8 w-8 rounded-full" />
-              </>
-            ) : (
-              <>
-                <AddProductName getFood={getFood} />
-                {foods.map((food) => {
-                  return <ProductName key={food._id} food={food} />;
-                })}
-
-                {/* {foods.map((food) => {
-                  return (
-                    <div
-                      key={food._id}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition"
-                    >
-                      {food.foodName}
-                      <Badge>4</Badge>
-                    </div>
-                  );
-                })}
-                <AddProductName getFood={getFood} /> */}
-              </>
-            )}
-            {/* hool nemehed */}
-            {/* <AddProductName /> */}
-
-            {/* card heseg */}
-          </div>
-        </section>
+        {categories?.map((category) => {
+          const filteredFoods = foods.filter(
+            (food) => food.category === category._id,
+          );
+          return (
+            <section className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                {category.categoryName}
+                <span className="text-gray-400 text-sm font-normal">(6)</span>
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {foodLoading ? (
+                  <>
+                    <Skeleton className="h-10 w-24" />
+                    <Skeleton className="h-10 w-24" />
+                    <Skeleton className="h-10 w-24" />
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                  </>
+                ) : (
+                  <>
+                    <AddProductName
+                      categoryId={category._id}
+                      getFood={getFood}
+                    />
+                    {filteredFoods.map((food) => {
+                      return <ProductName key={food._id} food={food} />;
+                    })}
+                  </>
+                )}
+              </div>
+            </section>
+          );
+        })}
       </main>
     </div>
   );
