@@ -2,6 +2,7 @@
   "name": "hono",
   "type": "module",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "hono": "^4.12.25",
     "mongodb": "^7.3.0",
     "mongoose": "^9.7.0"

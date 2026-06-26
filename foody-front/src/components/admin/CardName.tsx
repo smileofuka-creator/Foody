@@ -24,8 +24,8 @@ const ProductName = ({ food }: FoodProps) => {
       <div>
         <div className="relative w-full h-[160px] bg-gray-100">
           <Image
-            src={"/mainfood.png"}
-            alt={food?.foodName}
+            src={food?.image || "/placeholder-image.png"}
+            alt={food?.foodName || "Food image"}
             fill
             className="object-cover"
           />
@@ -39,7 +39,7 @@ const ProductName = ({ food }: FoodProps) => {
               {food?.foodName}
             </CardTitle>
             <span className="text-sm font-bold text-gray-950">
-              ${food?.price || "12.99"}
+              ${food?.price || "1k"}
             </span>
           </div>
           <CardDescription className="text-xs text-gray-500 line-clamp-2 mt-1.5 leading-relaxed">

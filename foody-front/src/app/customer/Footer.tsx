@@ -3,16 +3,13 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-black text-white pt-10 pb-5">
-      {/* Дээд талын улаан тууз */}
       <div className="bg-red-500 py-4 mb-16 overflow-hidden">
         <div className="flex gap-10 whitespace-nowrap text-lg font-bold">
           Fast fresh
         </div>
       </div>
 
-      {/* Үндсэн контент */}
       <div className="max-w-[1200px] mx-auto grid grid-cols-4 gap-8 px-10">
-        {/* Лого хэсэг */}
         <div className="flex items-center flex-col gap-2">
           <Image src="/Logo.png" alt="logo" width={40} height={40} />
           <h1 className="font-bold text-xl font-semibold">

@@ -2,28 +2,28 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Badge } from "@/components/ui/badge";
-import AddCategoryDialog from "@/components/admin/AddCategoryDialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProductName from "@/components/admin/CardName";
 import AddProductName from "@/components/admin/AddProductName";
 import Sidebar from "./sidebar";
+import { CategoryType, FoodType } from "@/types/commonTypes";
+import { MenuHeader } from "@/components/admin/MenuHeader";
 
-export interface CategoryType {
-  _id: string;
-  categoryName: string;
-  active?: boolean;
-  count?: number;
-}
-export interface FoodType {
-  _id: string;
-  foodName: string;
-  price?: number;
-  ingredients?: string;
-  image?: string;
-  active?: boolean;
-  category: string;
-}
+// export interface CategoryType {
+//   _id: string;
+//   categoryName: string;
+//   active?: boolean;
+//   count?: number;
+// }
+// export interface FoodType {
+//   _id: string;
+//   foodName: string;
+//   price?: number;
+//   ingredients?: string;
+//   image?: string;
+//   active?: boolean;
+//   category: string;
+// }
 
 // const categories = [
 //   { name: "All Dishes", count: 112, active: true },
@@ -98,31 +98,13 @@ const AdminMenuPage = () => {
         {/* Dishes Category Section */}
         <section className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-bold mb-4">Dishes category</h2>
-          <div className="flex flex-wrap gap-2 items-center">
-            {categoryLoading ? (
-              <>
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-10 w-24" />
-                <Skeleton className="h-8 w-8 rounded-full" />
-              </>
-            ) : (
-              <>
-                {categories.map((category) => {
-                  return (
-                    <div
-                      key={category._id}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition"
-                    >
-                      {category.categoryName}
-                      <Badge>4</Badge>
-                    </div>
-                  );
-                })}
-                <AddCategoryDialog getCategories={getCategories} />
-              </>
-            )}
-          </div>
+
+          <MenuHeader
+            categoryLoading={categoryLoading}
+            categories={categories}
+            foods={foods}
+            getCategories={getCategories}
+          />
         </section>
 
         {categories?.map((category) => {
@@ -130,10 +112,16 @@ const AdminMenuPage = () => {
             (food) => food.category === category._id,
           );
           return (
-            <section className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+            <div
+              key={category._id}
+              className="bg-white rounded-2xl p-6 mb-6 shadow-sm"
+            >
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                 {category.categoryName}
-                <span className="text-gray-400 text-sm font-normal">(6)</span>
+                <span className="text-gray-400 text-sm font-normal">
+                  {" "}
+                  ({filteredFoods.length})
+                </span>
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {foodLoading ? (
@@ -155,7 +143,7 @@ const AdminMenuPage = () => {
                   </>
                 )}
               </div>
-            </section>
+            </div>
           );
         })}
       </main>

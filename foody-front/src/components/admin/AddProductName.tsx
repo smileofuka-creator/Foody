@@ -9,11 +9,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { ImagePlus, Plus } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
+import { uploadFile } from "@/lib/uploadFile";
 
 const AddProductName = ({
   getFood,
@@ -40,14 +41,26 @@ const AddProductName = ({
     setIngredients(e.target.value);
   };
 
+  const [file, setFile] = useState<File>();
+
+  const handleFile = (e) => {
+    const uploadedFile = e.target.files[0];
+    console.log("zurag orj irne", uploadedFile);
+    setFile(uploadedFile);
+  };
+
   const addNewFood = async () => {
+    if (!file) {
+      console.log("zuragaa oruulna uu");
+      return;
+    }
+    const imageUrl = await uploadFile(file);
     await axios.post("http://localhost:3000/food", {
       foodName: foodName,
       price: Number(price),
       ingredients: ingredients,
       category: categoryId,
-      image:
-        "https://www.ferwer.com/img/blog/objevte-umeni-pripravy-nigiri-sushi-jako-doma-bez-stresu-1753961499827.webp",
+      image: imageUrl,
     });
     getFood();
   };
@@ -115,18 +128,33 @@ const AddProductName = ({
           </div>
 
           {/* zurag */}
-          {/* <div className="space-y-1.5">
+
+          <div className="space-y-1.5">
             <label className="text-xs font-semibold text-gray-700">
               Food image
             </label>
-            <div className="border border-dashed border-blue-200 bg-blue-50/30 hover:bg-blue-50/60 rounded-xl p-6 flex flex-col items-center justify-center gap-2 cursor-pointer transition">
-              <div className="text-gray-400">
-                <ImagePlus className="w-5 h-5" />
-              </div>
+
+            <label
+              htmlFor="food-image-upload"
+              className="border border-dashed border-blue-200 bg-blue-50/30 hover:bg-blue-50/60 rounded-xl p-6 flex flex-col items-center justify-center gap-2 cursor-pointer transition"
+            >
+              <ImagePlus className="w-6 h-6 text-blue-400" />
               <span className="text-xs text-gray-600 font-medium">
                 Choose a file or drag & drop it here
               </span>
-            </div>
+
+              <input
+                id="food-image-upload"
+                type="file"
+                className="hidden"
+                onChange={handleFile}
+              />
+            </label>
+          </div>
+
+          {/* <div>
+            <p>Image</p>
+            <Input onChange={handleFile} type="file" />
           </div> */}
 
           <DialogClose asChild>

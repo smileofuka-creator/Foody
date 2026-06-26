@@ -13,6 +13,7 @@ export const createFood = async (c: Context) => {
     price: input.price,
     ingredients: input.ingredients,
     category: input.category,
+    image: input.image,
   });
   return c.json({
     message: "Amjilttai hool nemlee",
@@ -34,6 +35,7 @@ export const getFood = async (c: Context) => {
 
 export const deleteFood = async (c: Context) => {
   await connectDb();
+  const id = c.req.param("id");
   const response = await FoodModel.findByIdAndDelete();
 
   return c.json({
